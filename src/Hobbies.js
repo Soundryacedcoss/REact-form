@@ -1,31 +1,41 @@
 import React, { useState } from 'react'
-
 export default function Hobbies() {
-    const [output,setOutput]=useState([])
-    const[value1,setValue1]=useState([])
-  
-    const formHandler=(event)=>{
-        event.preventDefault();
-        var opt=value1
-        setOutput(...output,opt)
-        console.log(opt)     
+  const [checked, setChecked] = useState([]);
+  const checkList = ["Singing", "Dancing", "Cricket"];
+  // Add/Remove checked item from list
+  const handleCheck = (event) => {
+    var updatedList = [...checked];
+    if (event.target.checked) {
+      updatedList = [...checked, event.target.value];
+    } else {
+      updatedList.splice(checked.indexOf(event.target.value), 1);
     }
-    const cktchek=(event)=>{
-         var output1=(event.target.value);
-         console.log(output1);
-         setValue1([...value1,output1])
-         console.log(value1);
-    }
-    
+    setChecked(updatedList);
+  };
+  // Generate string of checked items
+  const checkedItems = checked.length ? checked.reduce((total, item) => {
+        return total + ", " + item;
+      })
+    : "";
+  //it Return that item is checked or not
+  var isChecked = (item) =>
+    checked.includes(item) ? "checked-item" : "not-checked-item";
   return (
-    <form onSubmit={formHandler}>
-        <label>Cricket</label><input id='i1' onChange={cktchek} type="checkbox" value="cricket" />
-        <label>Football</label><input onChange={cktchek} type="checkbox"  value="Football" />
-        <label>Hockey</label><input onChange={cktchek} type="checkbox" value='Hockey' />
-        <br />
-        <button type='submit' className='button'>Submit</button>
-        <ul>{output.map((item)=> (<li>{item}</li>))}</ul>
-       
-    </form>
+    <>
+    <div className="checkList">
+      <div className="title">Your Hobbies:</div>
+      <div className="list-container">
+        {checkList.map((item, index) => (
+          <div key={index}>
+           <input value={item} type="checkbox" onChange={handleCheck} />
+            <span className={isChecked(item)}>{item}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div>
+      {`Hobbies are: ${checkedItems}`}
+    </div>
+    </>
   )
 }
