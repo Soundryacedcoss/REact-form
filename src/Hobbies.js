@@ -23,10 +23,10 @@ export default function Hobbies() {
   return (
     <>
     <div className="checkList">
-      <div className="title">Your Hobbies:</div>
-      <div className="list-container">
+      <div className="title" style={{marginBottom:"2%"}}>Your Hobbies:</div>
+      <div className="list-container" style={{marginBottom:"1%"}}>
         {checkList.map((item, index) => (
-          <div key={index}>
+          <div style={{marginBottom:"1%"}} key={index}>
            <input value={item} type="checkbox" onChange={handleCheck} />
             <span className={isChecked(item)}>{item}</span>
           </div>
@@ -34,7 +34,7 @@ export default function Hobbies() {
       </div>
     </div>
     <div>
-      {`Hobbies are: ${checkedItems}`}
+      <p style={{marginBottom:"2%"}}>{`Hobbies are: ${checkedItems}`}</p>
     </div>
     </>
   )
